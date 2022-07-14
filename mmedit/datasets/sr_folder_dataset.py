@@ -80,7 +80,7 @@ class SRFolderDataset(BaseSRDataset):
             basename, ext = osp.splitext(osp.basename(gt_path))
             lq_path = osp.join(self.lq_folder,
                                (f'{self.filename_tmpl.format(basename)}'
-                                f'{ext}'))
+                                f'.jpg'))
             assert lq_path in lq_paths, f'{lq_path} is not in lq_paths.'
             data_infos.append(dict(lq_path=lq_path, gt_path=gt_path))
         return data_infos
