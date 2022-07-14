@@ -1244,7 +1244,7 @@ class SwinAuxIR(nn.Module):
         else:
             # for image denoising and JPEG compression artifact reduction
             
-            bicubic = F.interpolate(x, size=(H * self.upscale, W * self.upscale), mode='bicubic', align_corners=False)
+            #bicubic = F.interpolate(x, size=(H * self.upscale, W * self.upscale), mode='bicubic', align_corners=False)
             
             x_first = self.conv_first(x)
             res = self.conv_after_body(
@@ -1252,7 +1252,8 @@ class SwinAuxIR(nn.Module):
             x = x + self.conv_last(res)
             up = self.conv_before_upsample(res)      
             up = self.upsample(up)
-            up = self.conv_last_up(up) + bicubic
+            up = self.conv_last_up(up)
+            # up = self.conv_last_up(up) + bicubic
         x = x / self.img_range + self.mean
         up = up / self.img_range + self.mean
 
