@@ -1254,10 +1254,19 @@ class SwinAuxIR(nn.Module):
             up = self.upsample(up)
             up = self.conv_last_up(up)
             # up = self.conv_last_up(up) + bicubic
+            up = up / self.img_range + self.mean
+            
         x = x / self.img_range + self.mean
-        up = up / self.img_range + self.mean
+        
 
-        return up[:, :, :H * self.upscale, :W * self.upscale], x
+        if self.upsampler == 'pixelshuffle':
+          
+            return x[:, :, :H * self.upscale, :W * self.upscale], before_
+        
+        else:
+            
+            return up[:, :, :H * self.upscale, :W * self.upscale], x        
+        
 
     def init_weights(self, pretrained=None, strict=True):
         """Init weights for models.
