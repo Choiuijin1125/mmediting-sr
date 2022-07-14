@@ -159,6 +159,7 @@ class BasicRestorer(BaseModel):
             else:
                 raise ValueError('iteration should be number or None, '
                                  f'but got {type(iteration)}')
+            output = mmcv.bgr2rgb(tensor2img(output))                
             mmcv.imwrite(tensor2img(output), save_path)
 
         return results
